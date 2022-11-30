@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Diskon
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
+                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>No</td>
+                                <td>Karyawan</td>
+                                <td *ngFor="let val of listPromo"><p class="text-center">{{ val.nama }}</p></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of listDiskon; index as i">
+                                <td class="vertical-middle">{{ i + 1 }}</td>
+                                <td class="vertical-middle">{{ user.nama }}</td>
+                                <td class="vertical-middle text-center" *ngFor="let diskon of user.diskon">
+                                    <input class="form-check-input" type="checkbox"
+                                    [name]="diskon.status"
+                                    [checked]="diskon.status"
+                                    [id]="diskon.id"
+                                    (change)="update(
+                                        user.id_user,
+                                        diskon.id_diskon,
+                                        diskon.id_promo,
+                                        diskon.status,
+                                        $event
+                                         )" value="" id="diskon_checkbox">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Nama</label>
+                <div class="col-md-8">
+                    <input type="text" [(ngModel)]="formModel.nama" name="nama" class="form-control"
+                        placeholder="Nama promo">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Type</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" [(ngModel)]="formModel.type" ngbRadioGroup name="kategori">
+                        <label ngbButtonLabel class="btn-info" (click)="cekTipe('diskon')">
+                            <input ngbButton type="radio" class="btn-check" value="diskon"> Diskon
+                        </label>
+                        <label ngbButtonLabel class="btn-info" (click)="cekTipe('voucher')">
+                            <input ngbButton type="radio" class="btn-check" value="voucher"> Voucher
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="formModel.type === 'voucher'">
+                <label class="col-md-4 required">Nominal Voucher</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" [(ngModel)]="formModel.nominal" name="harga" class="form-control"
+                            placeholder="Nominal Voucher">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="formModel.type === 'diskon'">
+                <label class="col-md-4 required">Presentase Diskon</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" [(ngModel)]="formModel.diskon" name="harga" class="form-control"
+                        placeholder="Nominal Voucher">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Kadaluarsa</label>
+                <div class="col-md-8">
+                    <ng-select bindValue="id" [(ngModel)]="formModel.kadaluarsa" [items]="listItems" bindLabel="nama" placeholder="kadaluarsa" name="kadaluarsa" appendTo="body"></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4">Syarat & Ketentuan</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" [(ngModel)]="formModel.syarat_ketentuan" name="deskripsi"
+                        placeholder="Syarat & Ketentuan" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Foto</label>
+                <div class="col-md-8">
+                    <input type="file" class="form-control" (change)="readURL($event)">
+                    <div class="col-md-12 pt-2">
+                        <img  [src]="imgSrc || formModel.fotoUrl" class="rounded-circle img-thumb" height="200" width="200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Promo</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

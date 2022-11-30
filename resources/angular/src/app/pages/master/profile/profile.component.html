@@ -1,0 +1,38 @@
+<div class="container bg-white mt-3 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5 img-hero" width="150px" [src]="imgSrc || userLogin.fotoUrl"><span class="font-weight-bold">{{ userLogin.nama }}</span></div>
+        </div>
+        <div class="col-md-9     border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <form (ngSubmit)="update()">
+                    <div class="row mt-3">
+                        <div class="col-md-12 mb-2">
+                            <label class="labels">Nama</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Masukkan nama" value="" [(ngModel)]="formModel.nama">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label class="labels">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Masukkan email" value="" [(ngModel)]="formModel.email">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control"placeholder="Masukkan password yang baru" value="" [(ngModel)]="formModel.password" id="password">
+                                    <small id="password" class="form-text text-muted">Kosongkan password jika tidak dirubah.</small>
+                                </div>
+                            </div>
+                        <div class="col-md-12 mb-2">
+                            <label class="labels">Foto</label>
+                            <input type="file" id="image" name="foto" class="form-control" (change)="readURL($event)" placeholder="Masukkan foto" value="">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- user list -->
+            <div class="form-group row">
+                <label class="col-md-4 required">User</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.id_user" bindValue="id" (change)="getSelectedUser()" [items]="listUsers" [searchable]="false" bindLabel="nama" placeholder="Pilih User" name="user" appendTo="body"></ng-select>
+                    <!-- info user -->
+                    <div class="card my-3" style="max-width: 540px;" *ngIf="selectedUser">
+                        <div class="row no-gutters">
+                          <div class="col-md-4">
+                            <img [src]="selectedUser.fotoUrl" [alt]="selectedUser.nama" style="width: 120px;" class="h-100">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <p class="card-text">Nama : <b>{{ selectedUser.nama }}</b></p>
+                              <p class="card-text"><small class="text-muted">Email <b>{{ selectedUser.email }}</b></small></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- <div class="col-md-12 pt-2" *ngIf="selectedUser">
+                        <img  [src]="selectedUser.fotoUrl" [alt]="selectedUser.nama" class="rounded-circle img-thumb" height="100" width="100">
+                    </div> -->
+                </div>
+            </div>
+            <!-- list voucher -->
+            <div class="form-group row">
+                <label class="col-md-4 required">Voucher</label>
+                <div class="col-md-8">
+                    <ng-select (change)="getSelectedVoucher()" [(ngModel)]="formModel.id_promo" [items]="listVouchers" bindValue="id_promo" [searchable]="false" bindLabel="nama" placeholder="Pilih Voucher" name="promo" appendTo="body"></ng-select>
+                    <!-- voucher info -->
+                    <div class="card my-3" style="max-width: 540px;" *ngIf="selectedVoucher">
+                        <div class="row no-gutters">
+                          <div class="col-md-4">
+                            <img [src]="selectedVoucher.fotoUrl" [alt]="selectedVoucher.syarat_ketentuan" style="width: 120px;" class="h-100">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <p class="card-text">Nominal : <b>{{ formatRupiah(selectedVoucher.nominal, 'Rp') }}</b></p>
+                              <p class="card-text"><small class="text-muted">Berlaku selama <b>{{ selectedVoucher.kadaluarsa }}</b> hari</small></p>
+                              <p class="card-text"><small class="text-muted">Syarat & Ketentuan : {{ selectedVoucher.syarat_ketentuan }}</small></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="selectedVoucher">
+                <label class="col-md-4">Catatan</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" name="deskripsi"
+                        placeholder="catatan singkat" [(ngModel)]="formModel.catatan" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" *ngIf="selectedVoucher">
+            <div class="form-group row">
+                <label class="col-md-4 required">Status</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" [(ngModel)]="formModel.status" ngbRadioGroup name="status">
+                        <label ngbButtonLabel class="btn-info" >
+                            <input ngbButton type="radio" (click)="cekStatus('aktif')" class="btn-check" [value]="1"> Aktif
+                        </label>
+                        <label ngbButtonLabel class="btn-info" >
+                            <input ngbButton type="radio" (click)="cekStatus('tidak_aktif')" class="btn-check" [value]="0"> Tidak Aktif
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="selectedVoucher">
+                <label class="col-md-4 required">Periode Mulai</label>
+                <div class="col-md-8">
+                    <input type="date" [(ngModel)]="formModel.periode_mulai" name="periode_mulai" (change)="selectDate()" class="form-control"
+                        placeholder="Periode Mulai">
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="selectedVoucher">
+                <label class="col-md-4 required">Periode Selesai</label>
+                <div class="col-md-8">
+                    <input type="text" *ngIf="mode === 'edit'" [(ngModel)]="formModel.periode_selesai" disabled [value]="formatPeriodeAkhir" name="periode_selesai"  class="form-control disabled"
+                        placeholder="Periode Selesai">
+                    <input type="text" *ngIf="mode === 'add'" disabled [value]="formatPeriodeAkhir" name="periode_selesai"  class="form-control disabled"
+                        placeholder="Periode Selesai">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Voucher</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
